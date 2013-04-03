@@ -8,7 +8,7 @@
     "url": "git://github.com/dominictarr/pull-pushable.git"
   },
   "dependencies": {
-    "pull-stream": "~1"
+    "pull-stream": "~2"
   },
   "devDependencies": {},
   "scripts": {
