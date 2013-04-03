@@ -1,6 +1,6 @@
 {
   "name": "pull-pushable",
-  "description": "",
+  "description": "pull-stream with a push interface",
   "version": "1.0.0",
   "homepage": "https://github.com/dominictarr/pull-pushable",
   "repository": {
