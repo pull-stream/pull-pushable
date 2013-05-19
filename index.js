@@ -1,6 +1,6 @@
 var pull = require('pull-stream')
 
-module.exports = pull.pipeableSource(function () {
+module.exports = pull.Source(function (onClose) {
   var buffer = [], cbs = [], waiting = [], ended
 
   function drain() {
@@ -17,9 +17,13 @@ module.exports = pull.pipeableSource(function () {
     ended = ended || end
     waiting.push(cb)
     drain()
+    if(ended)
+      onClose && onClose(ended === true ? null : ended)
   }
 
   read.push = function (data, cb) {
+    if(ended)
+      return cb && cb(ended === true ? null : ended)
     buffer.push(data); cbs.push(cb)
     drain()
   }
@@ -27,8 +31,11 @@ module.exports = pull.pipeableSource(function () {
   read.end = function (end, cb) {
     if('function' === typeof end)
       cb = end, end = true
-    ended = ended || end || true; cbs.push(cb)
+    ended = ended || end || true;
+    if(cb) cbs.push(cb)
     drain()
+    if(ended)
+      onClose && onClose(ended === true ? null : ended)
   }
 
   return read
