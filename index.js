@@ -8,9 +8,8 @@ module.exports = pull.Source(function (onClose) {
     while(waiting.length && ((l = buffer.length) || ended)) {
       var data = buffer.shift()
       var cb   = cbs.shift()
-      console.log('ended', ended, l)
       waiting.shift()(l ? null : ended, data)
-      cb && cb(ended)
+      cb && cb(ended === true ? null : ended)
     }
   }
 
