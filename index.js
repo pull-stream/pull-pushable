@@ -4,11 +4,12 @@ module.exports = pull.Source(function (onClose) {
   var buffer = [], cbs = [], waiting = [], ended
 
   function drain() {
-    while(waiting.length && (buffer.length || ended)) {
+    var l
+    while(waiting.length && ((l = buffer.length) || ended)) {
       var data = buffer.shift()
       var cb   = cbs.shift()
-
-      waiting.shift()(ended, data)
+      console.log('ended', ended, l)
+      waiting.shift()(l ? null : ended, data)
       cb && cb(ended)
     }
   }
