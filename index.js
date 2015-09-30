@@ -1,4 +1,4 @@
-var pull = require('pull-stream')
+var pull = require('pull-core')
 
 module.exports = pull.Source(function (onClose) {
   var buffer = [], cbs = [], waiting = [], ended
