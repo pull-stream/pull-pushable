@@ -12,11 +12,14 @@ test('pushable', function (t) {
   t.equal('function', typeof buf)
   t.equal(2, buf.length)
 
-  buf.pipe(pull.collect(function (end, array) {
-    console.log(array)
-    t.deepEqual(array, [1, 2, 3])
-    t.end()
-  }))
+  pull(
+    buf,
+    pull.collect(function (end, array) {
+      console.log(array)
+      t.deepEqual(array, [1, 2, 3])
+      t.end()
+    })
+  )
 
   //SOMETIMES YOU NEED PUSH!
 
