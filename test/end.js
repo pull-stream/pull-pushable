@@ -1,10 +1,8 @@
-
-var pull     = require('pull-stream')
+// var pull = require('pull-stream')
 var pushable = require('../')
-var test     = require('tape')
+var test = require('tape')
 
 test('pushable', function (t) {
-
   var buf = pushable()
   t.plan(10)
 
@@ -34,4 +32,3 @@ test('pushable', function (t) {
     })
   })
 })
-

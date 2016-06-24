@@ -1,5 +1,4 @@
-
-var pull = require('pull-stream')
+// var pull = require('pull-stream')
 var tape = require('tape')
 var Pushable = require('../')
 
@@ -11,7 +10,7 @@ tape('abort after a read', function (t) {
     t.equal(err, _err)
   })
 
-  //manual read.
+  // manual read.
   p(null, function (err, data) {
     console.log('read cb')
     t.equal(err, _err)
@@ -21,7 +20,6 @@ tape('abort after a read', function (t) {
     console.log('abort cb')
     t.end()
   })
-  
 })
 
 tape('abort without a read', function (t) {
@@ -36,7 +34,6 @@ tape('abort without a read', function (t) {
     console.log('abort cb')
     t.end()
   })
-
 })
 
 tape('abort without a read, with data', function (t) {
@@ -53,5 +50,4 @@ tape('abort without a read, with data', function (t) {
   })
 
   p.push(1)
-
 })

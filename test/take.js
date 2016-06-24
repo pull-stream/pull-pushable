@@ -2,13 +2,11 @@ var pull = require('pull-stream')
 var pushable = require('../')
 var test = require('tape')
 
-
 test('on close callback', function (t) {
-
   var i = 0
 
   var p = pushable(function (err) {
-    if(err) throw err
+    if (err) throw err
     console.log('ended', err)
     t.equal(i, 3)
     t.end()
@@ -28,5 +26,4 @@ test('on close callback', function (t) {
   p.push(3)
   p.push(4)
   p.push(5)
-
 })

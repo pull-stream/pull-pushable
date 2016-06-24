@@ -9,10 +9,11 @@
   },
   "devDependencies": {
     "pull-stream": "^3.0.1",
-    "tape": "~1.0.2"
+    "standard": "^7.1.2",
+    "tape": "^4.6.0"
   },
   "scripts": {
-    "test": "set -e; for t in test/*.js; do node $t; done"
+    "test": "standard && tape test/*.js"
   },
   "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
   "license": "MIT"
