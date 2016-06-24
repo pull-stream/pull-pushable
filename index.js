@@ -33,8 +33,15 @@ function pullPushable (onClose) {
 
   read.push = function (data) {
     if (ended) return
-    buffer.push(data)
+    // if sink already waiting,
+    // we can call back directly.
+    if (cb) {
+      callback(abort, data)
+      return
+    }
+    // otherwise push data and
     // attempt to drain
+    buffer.push(data)
     drain()
   }
 
