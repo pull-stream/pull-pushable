@@ -15,7 +15,7 @@ Instead try just using `pull.values(array)`.
 
 ## Example
 
-``` js
+```js
 var Pushable = require('pull-pushable')
 var pull     = require('pull-stream')
 var p = Pushable()
@@ -28,7 +28,7 @@ p.end()
 
 Also, can provide a listener for when the stream is closed.
 
-``` js
+```js
 var Pushable = require('pull-pushable')
 var pull     = require('pull-stream')
 var p = Pushable(function (err) {
@@ -42,7 +42,6 @@ p.push(1)
 p.push(2)
 p.push(3)
 p.push(4) //stream will be aborted before this is output
-
 ```
 
 ## License
