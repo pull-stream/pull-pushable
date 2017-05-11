@@ -1,6 +1,11 @@
 module.exports = pullPushable
 
-function pullPushable (onClose) {
+function pullPushable (separated, onClose) {
+  if (typeof separated === 'function') {
+    onClose = separated
+    separated = false
+  }
+
   // create a buffer for data
   // that have been pushed
   // but not yet pulled.
@@ -25,13 +30,13 @@ function pullPushable (onClose) {
   }
 
   var ended
-  read.end = function (end) {
+  function end (end) {
     ended = ended || end || true
     // attempt to drain
     drain()
   }
 
-  read.push = function (data) {
+  function push (data) {
     if (ended) return
     // if sink already waiting,
     // we can call back directly.
@@ -45,6 +50,14 @@ function pullPushable (onClose) {
     drain()
   }
 
+  // Return functions separated from source { push, end, source }
+  if (separated) {
+    return { push, end, source: read }
+  }
+
+  // Return normal
+  read.push = push
+  read.end = end
   return read
 
   // `drain` calls back to (if any) waiting

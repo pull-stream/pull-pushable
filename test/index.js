@@ -26,3 +26,26 @@ test('pushable', function (t) {
   buf.push(3)
   buf.end()
 })
+
+test('pushable with separated functions', function (t) {
+  t.plan(3)
+
+  var { push, end, source } = pushable(true)
+
+  t.is(typeof source, 'function', 'is a function')
+  t.is(source.length, 2, 'is a source stream')
+
+  pull(
+    source,
+    pull.collect(function (err, data) {
+      if (err) throw err
+      console.log(data)
+      t.same(data, [1, 2, 3], 'got expected output')
+    })
+  )
+
+  push(1)
+  push(2)
+  push(3)
+  end()
+})

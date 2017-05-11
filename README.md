@@ -44,6 +44,26 @@ p.push(3)
 p.push(4) //stream will be aborted before this is output
 ```
 
+When giving the stream away and you don't want the user to have the `push`/`end` functions,
+you can pass a `separated` option.  It returns `{ push, end, source }`.
+
+```js
+function createStream () {
+  var p = Pushable(true) // optionally pass `onDone` after it
+
+  somethingAsync((err, data) => {
+    if (err) return p.end(err)
+    p.push(data)
+  })
+
+  return p.source
+}
+
+var stream = createStream()
+// stream.push === undefined
+```
+
 ## License
 
 MIT
+
