@@ -52,7 +52,7 @@ function pullPushable (separated, onClose) {
 
   // Return functions separated from source { push, end, source }
   if (separated) {
-    return { push, end, source: read }
+    return { push: push, end: end, source: read }
   }
 
   // Return normal
