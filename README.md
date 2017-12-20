@@ -45,7 +45,7 @@ p.push(4) //stream will be aborted before this is output
 ```
 
 When giving the stream away and you don't want the user to have the `push`/`end` functions,
-you can pass a `separated` option.  It returns `{ push, end, source }`.
+you can pass a `separated` option.  It returns `{ push, end, source, buffer }`.
 
 ```js
 function createStream () {
@@ -62,6 +62,9 @@ function createStream () {
 var stream = createStream()
 // stream.push === undefined
 ```
+
+The current buffer array is exposed as `buffer` if you need to inspect or
+manipulate it.
 
 ## License
 
