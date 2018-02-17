@@ -10,6 +10,10 @@ test('pushable', function (t) {
   t.equal('function', typeof buf)
   t.equal(2, buf.length)
 
+  buf.push(1)
+
+  t.deepEqual(buf.buffer, [1])
+
   pull(
     buf,
     pull.collect(function (end, array) {
@@ -21,19 +25,23 @@ test('pushable', function (t) {
 
   // SOMETIMES YOU NEED PUSH!
 
-  buf.push(1)
   buf.push(2)
   buf.push(3)
   buf.end()
 })
 
 test('pushable with separated functions', function (t) {
-  t.plan(3)
+  t.plan(4)
 
-  var { push, end, source } = pushable(true)
+  var { push, end, source, buffer } = pushable(true)
 
   t.is(typeof source, 'function', 'is a function')
   t.is(source.length, 2, 'is a source stream')
+
+  push(1)
+  push(2)
+
+  t.deepEqual(buffer, [1, 2])
 
   pull(
     source,
@@ -44,8 +52,6 @@ test('pushable with separated functions', function (t) {
     })
   )
 
-  push(1)
-  push(2)
   push(3)
   end()
 })

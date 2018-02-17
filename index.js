@@ -50,12 +50,13 @@ function pullPushable (separated, onClose) {
 
   // Return functions separated from source { push, end, source }
   if (separated) {
-    return { push: push, end: end, source: read }
+    return { push: push, end: end, source: read, buffer: buffer }
   }
 
   // Return normal
   read.push = push
   read.end = end
+  read.buffer = buffer
   return read
 
   // `drain` calls back to (if any) waiting
