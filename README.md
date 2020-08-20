@@ -1,6 +1,6 @@
 # pull-pushable
 
-A pull-stream with a pushable interface.
+A pull-stream source with a pushable interface.
 
 Use this when you really can't pull from your source.
 For example, often I like to have a "live" stream.
@@ -65,6 +65,31 @@ var stream = createStream()
 
 The current buffer array is exposed as `buffer` if you need to inspect or
 manipulate it.
+
+## API
+
+### `var p = Pushable([separated][, onClose])`
+
+Returns an new instance of Pushable.
+
+If `separated` is `true`, then `p.source` will be exposed, allowing just the
+source stream to be exposed without access to the rest of the Pushable API.
+
+`onClose`, if provided, will be called with `err`, which may be `true` (normal
+stream end) or an `Error` instance, indicating an error occurred in the
+pipeline.
+
+### `p.push(buf)`
+
+Push a `Buffer`, `buf`, into the Pushable.
+
+### `p.end([err])`
+
+Ends the source, with optional error `err`.
+
+### `p.buffer`
+
+The current buffer of unread data that's been pushed to `p`.
 
 ## License
 
